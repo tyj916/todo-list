@@ -2,21 +2,21 @@
   for this program we'll be able to
   - add task =
   - display task =
-  - edit task 
-  - complete task
-  - remove task
+  - edit task =
+  - complete task =
+  - remove task =
   -
-  - create a default project
-  - create new project
-  - display project
-  - move task to project
+  - create a default project =
+  - create new project =
+  - display project =
+  - move task to project =
   - edit project
   - complete project
   - remove project
   -
   - log all tasks and projects
 */
-import { logTask } from "./logger";
+import { logTask, logProject } from "./logger";
 import { createProject } from "./project";
 import { createTask } from "./task";
 
@@ -31,6 +31,12 @@ function updateTask(task, title, description, priority, dueDate, notes, checklis
 
 function completeTask(task) {
   task.checklist = true;
+}
+
+function updateProject(project, title, description, checklist) {
+  project.title = title;
+  project.description = description;
+  project.checklist = checklist;
 }
 
 const tasks = [
@@ -83,10 +89,12 @@ project1.addTask(task1);
 project1.addTask(task2);
 project2.addTask(task3);
 
+project1.title = "Change";
+
 updateTask(task2, "woohoo", "Edited!", 2, new Date().toDateString(), "no notes", false);
 completeTask(task2);
 project1.removeTask(0);
+updateProject(project1, "Project Z", "Defined");
 
-// display project task
-project1.log();
-project2.log();
+console.log(project1);
+logProject(project1);

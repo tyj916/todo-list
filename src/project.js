@@ -23,14 +23,6 @@ function createProject(title, description, checklist) {
   function removeTask(taskIndex) {
     tasks.splice(taskIndex, 1);
   }
-  
-  function log() {
-    logMessage(title);
-    logMessage(description);
-    tasks.forEach(task => {
-      logTask(task);
-    });
-  }
 
   return {
     title,
@@ -39,6 +31,5 @@ function createProject(title, description, checklist) {
     tasks,
     addTask,
     removeTask,
-    log,
   }
 }
