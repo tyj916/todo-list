@@ -13,7 +13,7 @@ import { logMessage, logTask } from "./logger";
 
 export { createProject };
 
-function createProject(title, description) {
+function createProject(title, description, checklist) {
   const tasks = [];
 
   function addTask(task) {
@@ -35,6 +35,7 @@ function createProject(title, description) {
   return {
     title,
     description,
+    checklist,
     tasks,
     addTask,
     removeTask,
