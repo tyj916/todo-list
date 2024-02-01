@@ -5,33 +5,39 @@
   - tasks
   
   functions:
-  - update project
+  - add task
+  - remove task
 */
 
 import { logMessage, logTask } from "./logger";
 
-export { addProject };
+export { createProject };
 
-function addProject(title, description) {
+function createProject(title, description) {
   const tasks = [];
+
+  function addTask(task) {
+    tasks.push(task);
+  }
+
+  function removeTask(taskIndex) {
+    tasks.splice(taskIndex, 1);
+  }
+  
+  function log() {
+    logMessage(title);
+    logMessage(description);
+    tasks.forEach(task => {
+      logTask(task);
+    });
+  }
 
   return {
     title,
     description,
     tasks,
     addTask,
+    removeTask,
     log,
   }
-}
-
-function addTask(task) {
-  this.tasks.push(task);
-}
-
-function log() {
-  logMessage(this.title);
-  logMessage(this.description);
-  this.tasks.forEach(task => {
-    logTask(task);
-  });
 }
