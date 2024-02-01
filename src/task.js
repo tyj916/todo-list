@@ -6,13 +6,12 @@
   - priority
   - notes
   - checklist
-
-  functions:
-  - update task
 */
 
-export function addTask(title, description, dueDate, priority, notes, checklist) {
-  
+export { createTask };
+
+function createTask(title, description, dueDate, priority, notes, checklist) {
+
   return {
     title,
     description,
