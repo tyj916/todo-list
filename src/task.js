@@ -10,14 +10,13 @@
 
 export { createTask };
 
-function createTask(title, description, dueDate, priority, notes, checklist) {
+function createTask(title, description, dueDate, priority, isCompleted) {
 
   return {
     title,
     description,
     dueDate,
     priority,
-    notes,
-    checklist,
+    isCompleted,
   }
 }

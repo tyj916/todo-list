@@ -20,23 +20,24 @@ import { logTask, logProject } from "./logger";
 import { createProject } from "./project";
 import { createTask } from "./task";
 
-function updateTask(task, title, description, priority, dueDate, notes, checklist) {
+function updateTask(task, title, description, priority, dueDate) {
   task.title = title;
   task.description = description;
   task.priority = priority;
   task.dueDate = dueDate;
-  task.notes = notes;
-  task.checklist = checklist;
 }
 
 function completeTask(task) {
-  task.checklist = true;
+  task.isCompleted = true;
 }
 
-function updateProject(project, title, description, checklist) {
+function updateProject(project, title, description) {
   project.title = title;
   project.description = description;
-  project.checklist = checklist;
+}
+
+function completeProject(project) {
+  project.isCompleted = true;
 }
 
 const tasks = [
@@ -45,38 +46,34 @@ const tasks = [
     description: "Task 1 needs to be done today",
     dueDate: new Date().toDateString(),
     priority: 1,
-    notes: "no notes",
-    checklist: false,
+    isCompleted: false,
   },
   {
     title: "Task 2",
     description: "What?! There is a task 2?",
     dueDate: new Date().toDateString(),
     priority: 1,
-    notes: "shit",
-    checklist: false,
+    isCompleted: false,
   },
   {
     title: "Task 3",
     description: "Workout bro",
     dueDate: new Date().toDateString(),
     priority: 2,
-    notes: "back...",
-    checklist: false,
+    isCompleted: false,
   },
   {
     title: "Update Task",
     description: "Updated",
     dueDate: new Date().toDateString(),
     priority: 3,
-    notes: "update",
-    checklist: false,
+    isCompleted: false,
   },
 ];
 
-const task1 = createTask(tasks[0].title, tasks[0].description, tasks[0].dueDate, tasks[0].priority, tasks[0].notes, tasks[0].checklist);
-const task2 = createTask(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks[1].priority, tasks[1].notes, tasks[1].checklist);
-const task3 = createTask(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority, tasks[2].notes, tasks[2].checklist);
+const task1 = createTask(tasks[0].title, tasks[0].description, tasks[0].dueDate, tasks[0].priority, tasks[0].isCompleted);
+const task2 = createTask(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks[1].priority, tasks[1].isCompleted);
+const task3 = createTask(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority, tasks[2].isCompleted);
 
 const defaultProject = createProject("Default", "Unassigned task will be placed here.");
 const project1 = createProject("Project A", "Not by Jackie Chan");
@@ -95,6 +92,7 @@ updateTask(task2, "woohoo", "Edited!", 2, new Date().toDateString(), "no notes",
 completeTask(task2);
 project1.removeTask(0);
 updateProject(project1, "Project Z", "Defined");
+completeProject(project1);
 
 console.log(project1);
 logProject(project1);
