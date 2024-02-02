@@ -1,14 +1,3 @@
-/*
-  projects are going to organize tasks, so it contains:
-  - title
-  - description
-  - tasks
-  
-  functions:
-  - add task
-  - remove task
-*/
-
 import { logProject } from "./logger";
 
 export { Project };
