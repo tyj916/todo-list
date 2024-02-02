@@ -1,3 +1,5 @@
+import { sortTasks } from "./tasksProcessor";
+
 export function Todolist() {
   const projects = [];
 
@@ -11,6 +13,23 @@ export function Todolist() {
     projects.splice(projectIndex, 1);
   }
 
+  function getAllTasks() {
+    const allTasks = [];
+
+    projects.forEach(project => {
+      project.getTasks().forEach(task => {
+        allTasks.push(task);
+      });
+    });
+
+    return allTasks;
+  }
+
+  function getSortedTasks() {
+    const allTasks = getAllTasks();
+    return sortTasks(allTasks);
+  }
+
   function log() {
     projects.forEach(project => project.log());
   }
@@ -18,6 +37,7 @@ export function Todolist() {
   return {
     addProject,
     removeProject,
+    getSortedTasks,
     log,
   }
 }

@@ -1,4 +1,5 @@
 import { logMessage } from "./logger";
+import { logTasks, sortTasks } from "./tasksProcessor";
 
 export function Project(title, description) {
   const project = createProject(title, description);
@@ -26,10 +27,12 @@ export function Project(title, description) {
     for (const key in project) {
       logMessage(`${key}: ${project[key]}`);
     }
-    project.tasks.forEach(task => task.log());
+    logTasks(project.tasks);
   }
 
   return {
+    getTasks: () => project.tasks,
+    getSortedTasks: () => sortTasks(project.tasks),
     addTask,
     update,
     complete,

@@ -21,6 +21,7 @@ export function Task(title, description, dueDate, priority) {
   }
 
   return {
+    getDate: () => task.dueDate,
     update,
     complete,
     log,
