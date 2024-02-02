@@ -9,7 +9,7 @@
   - remove task
 */
 
-import { logMessage, logProject, logTask } from "./logger";
+import { logProject } from "./logger";
 
 export { createProject, projectHandler };
 
