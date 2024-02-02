@@ -25,9 +25,9 @@ function Project(title, description) {
   }
 
   function log() {
-    logMessage(project.title);
-    logMessage(project.description);
-    logMessage(project.isCompleted);
+    for (const key in project) {
+      logMessage(`${key}: ${project[key]}`);
+    }
     project.tasks.forEach(task => task.log());
   }
 
