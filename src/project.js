@@ -18,7 +18,9 @@ function Project(title, description) {
     project.isCompleted = true;
   }
 
-  function removeTask(taskIndex) {
+  function removeTask(task) {
+    const taskIndex = project.tasks.indexOf(task);
+    if (taskIndex === -1) return;
     project.tasks.splice(taskIndex, 1);
   }
 
