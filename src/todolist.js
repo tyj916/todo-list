@@ -1,5 +1,5 @@
-export function Todolist(defaultProject) {
-  const projects = [defaultProject];
+export function Todolist() {
+  const projects = [];
 
   function addProject(project) {
     projects.push(project);
