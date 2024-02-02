@@ -12,8 +12,8 @@ import { logTask } from "./logger";
 
 export { Task };
 
-function Task(title, description, dueDate, priority, isCompleted) {
-  const task = createTask(title, description, dueDate, priority, isCompleted);
+function Task(title, description, dueDate, priority) {
+  const task = createTask(title, description, dueDate, priority);
 
   function update(title, description, priority, dueDate) {
     task.title = title;
@@ -37,7 +37,8 @@ function Task(title, description, dueDate, priority, isCompleted) {
   }
 }
 
-function createTask(title, description, dueDate, priority, isCompleted) {
+function createTask(title, description, dueDate, priority) {
+  const isCompleted = false;
 
   return {
     title,

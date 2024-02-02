@@ -13,8 +13,8 @@ import { logProject } from "./logger";
 
 export { Project };
 
-function Project(title, description, isCompleted) {
-  const project = createProject(title, description, isCompleted);
+function Project(title, description) {
+  const project = createProject(title, description);
 
   function addTask(task) {
     project.tasks.push(task);
@@ -46,8 +46,9 @@ function Project(title, description, isCompleted) {
   }
 }
 
-function createProject(title, description, isCompleted) {
+function createProject(title, description) {
   const tasks = [];
+  const isCompleted = false;
 
   return {
     title,
