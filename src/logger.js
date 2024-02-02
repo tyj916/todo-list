@@ -16,7 +16,5 @@ function logProject(project) {
   console.log(project.title);
   console.log(project.description);
   console.log(project.isCompleted);
-  project.tasks.forEach(task => {
-    logTask(task);
-  });
+  project.tasks.forEach(task => task.log());
 }
