@@ -1,4 +1,4 @@
-import { logProject } from "./logger";
+import { logMessage } from "./logger";
 
 export { Project };
 
@@ -25,7 +25,10 @@ function Project(title, description) {
   }
 
   function log() {
-    logProject(project);
+    logMessage(project.title);
+    logMessage(project.description);
+    logMessage(project.isCompleted);
+    project.tasks.forEach(task => task.log());
   }
 
   return {

@@ -1,4 +1,4 @@
-import { logTask } from "./logger";
+import { logMessage } from "./logger";
 
 export { Task };
 
@@ -17,7 +17,9 @@ function Task(title, description, dueDate, priority) {
   }
 
   function log() {
-    logTask(task);
+    for (const key in task) {
+      logMessage(`${key}: ${task[key]}`);
+    }
   }
 
   return {
