@@ -16,38 +16,28 @@
   -
   - log all tasks and projects
 */
-import { logTask, logProject } from "./logger";
+
 import { Project } from "./project";
 import { Task } from "./task";
 
 const tasks = [
   {
-    title: "Task 1",
-    description: "Task 1 needs to be done today",
+    title: "Learn coding",
+    description: "Coding is important!",
     dueDate: new Date().toDateString(),
     priority: 1,
-    isCompleted: false,
   },
   {
-    title: "Task 2",
-    description: "What?! There is a task 2?",
+    title: "Do housework",
+    description: "What?! There's dust on the floor again?!",
     dueDate: new Date().toDateString(),
     priority: 1,
-    isCompleted: false,
   },
   {
-    title: "Task 3",
-    description: "Workout bro",
+    title: "Workout",
+    description: "Gym bro",
     dueDate: new Date().toDateString(),
     priority: 2,
-    isCompleted: false,
-  },
-  {
-    title: "Update Task",
-    description: "Updated",
-    dueDate: new Date().toDateString(),
-    priority: 3,
-    isCompleted: false,
   },
 ];
 
@@ -56,18 +46,41 @@ const task2 = Task(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks
 const task3 = Task(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority);
 
 const defaultProject = Project("Default", "Unassigned task will be placed here.");
-const workout = Project("Workout", "My workout project!");
 
 defaultProject.addTask(task1);
 defaultProject.addTask(task2);
 defaultProject.addTask(task3);
-workout.addTask(task1);
-workout.addTask(task2);
-workout.addTask(task3);
 
-task2.update(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority);
-task2.complete();
-workout.removeTask(0);
-workout.update("Project Z", "Defined");
-workout.complete();
-workout.log();
+const todolist = (function(defaultProject) {
+  const projects = [defaultProject];
+
+  function addProject(project) {
+    projects.push(project);
+  }
+
+  function removeProject(project) {
+    const projectIndex = projects.indexOf(project);
+    if (projectIndex === -1) return;
+    projects.splice(projectIndex, 1);
+  }
+
+  function log() {
+    projects.forEach(project => project.log());
+  }
+
+  return {
+    addProject,
+    removeProject,
+    log,
+  }
+})(defaultProject);
+
+const workoutProject = Project("Workout", "Gotta be strong!");
+const studyProject = Project("Study", "Gotta be smart!");
+
+todolist.addProject(workoutProject);
+todolist.addProject(studyProject);
+
+todolist.removeProject(studyProject);
+
+todolist.log();
