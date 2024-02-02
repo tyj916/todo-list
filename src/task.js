@@ -10,20 +10,11 @@
 
 import { logTask } from "./logger";
 
-export { createTask, taskHandler };
+export { Task };
 
-function createTask(title, description, dueDate, priority, isCompleted) {
+function Task(title, description, dueDate, priority, isCompleted) {
+  const task = createTask(title, description, dueDate, priority, isCompleted);
 
-  return {
-    title,
-    description,
-    dueDate,
-    priority,
-    isCompleted,
-  }
-}
-
-function taskHandler(task) {
   function update(title, description, priority, dueDate) {
     task.title = title;
     task.description = description;
@@ -43,5 +34,16 @@ function taskHandler(task) {
     update,
     complete,
     log,
+  }
+}
+
+function createTask(title, description, dueDate, priority, isCompleted) {
+
+  return {
+    title,
+    description,
+    dueDate,
+    priority,
+    isCompleted,
   }
 }

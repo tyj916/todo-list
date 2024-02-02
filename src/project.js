@@ -11,20 +11,11 @@
 
 import { logProject } from "./logger";
 
-export { createProject, projectHandler };
+export { Project };
 
-function createProject(title, description, isCompleted) {
-  const tasks = [];
+function Project(title, description, isCompleted) {
+  const project = createProject(title, description, isCompleted);
 
-  return {
-    title,
-    description,
-    isCompleted,
-    tasks,
-  }
-}
-
-function projectHandler(project) {
   function addTask(task) {
     project.tasks.push(task);
   }
@@ -52,5 +43,16 @@ function projectHandler(project) {
     complete,
     removeTask,
     log,
+  }
+}
+
+function createProject(title, description, isCompleted) {
+  const tasks = [];
+
+  return {
+    title,
+    description,
+    isCompleted,
+    tasks,
   }
 }

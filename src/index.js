@@ -17,28 +17,8 @@
   - log all tasks and projects
 */
 import { logTask, logProject } from "./logger";
-import { createProject } from "./project";
-import { createTask } from "./task";
-
-function updateTask(task, title, description, priority, dueDate) {
-  task.title = title;
-  task.description = description;
-  task.priority = priority;
-  task.dueDate = dueDate;
-}
-
-function completeTask(task) {
-  task.isCompleted = true;
-}
-
-function updateProject(project, title, description) {
-  project.title = title;
-  project.description = description;
-}
-
-function completeProject(project) {
-  project.isCompleted = true;
-}
+import { Project } from "./project";
+import { Task } from "./task";
 
 const tasks = [
   {
@@ -71,28 +51,23 @@ const tasks = [
   },
 ];
 
-const task1 = createTask(tasks[0].title, tasks[0].description, tasks[0].dueDate, tasks[0].priority, tasks[0].isCompleted);
-const task2 = createTask(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks[1].priority, tasks[1].isCompleted);
-const task3 = createTask(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority, tasks[2].isCompleted);
+const task1 = Task(tasks[0].title, tasks[0].description, tasks[0].dueDate, tasks[0].priority, tasks[0].isCompleted);
+const task2 = Task(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks[1].priority, tasks[1].isCompleted);
+const task3 = Task(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority, tasks[2].isCompleted);
 
-const defaultProject = createProject("Default", "Unassigned task will be placed here.");
-const project1 = createProject("Project A", "Not by Jackie Chan");
-const project2 = createProject("Project B", "Not by Jackie Chan");
+const defaultProject = Project("Default", "Unassigned task will be placed here.");
+const workout = Project("Workout", "My workout project!");
 
 defaultProject.addTask(task1);
 defaultProject.addTask(task2);
 defaultProject.addTask(task3);
-project1.addTask(task1);
-project1.addTask(task2);
-project2.addTask(task3);
+workout.addTask(task1);
+workout.addTask(task2);
+workout.addTask(task3);
 
-project1.title = "Change";
-
-updateTask(task2, "woohoo", "Edited!", 2, new Date().toDateString(), "no notes", false);
-completeTask(task2);
-project1.removeTask(0);
-updateProject(project1, "Project Z", "Defined");
-completeProject(project1);
-
-console.log(project1);
-logProject(project1);
+task2.update("woohoo", "Edited!", 2, new Date().toDateString(), "no notes", false);
+task2.complete();
+workout.removeTask(0);
+workout.update("Project Z", "Defined");
+workout.complete();
+workout.log();
