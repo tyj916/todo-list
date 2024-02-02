@@ -1,8 +1,6 @@
 import { logMessage } from "./logger";
 
-export { Project };
-
-function Project(title, description) {
+export function Project(title, description) {
   const project = createProject(title, description);
 
   function addTask(task) {

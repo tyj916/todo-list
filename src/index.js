@@ -19,6 +19,7 @@
 
 import { Project } from "./project";
 import { Task } from "./task";
+import { Todolist } from "./todolist";
 
 const tasks = [
   {
@@ -46,37 +47,14 @@ const task2 = Task(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks
 const task3 = Task(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority);
 
 const defaultProject = Project("Default", "Unassigned task will be placed here.");
+const workoutProject = Project("Workout", "Gotta be strong!");
+const studyProject = Project("Study", "Gotta be smart!");
 
 defaultProject.addTask(task1);
 defaultProject.addTask(task2);
 defaultProject.addTask(task3);
 
-const todolist = (function(defaultProject) {
-  const projects = [defaultProject];
-
-  function addProject(project) {
-    projects.push(project);
-  }
-
-  function removeProject(project) {
-    const projectIndex = projects.indexOf(project);
-    if (projectIndex === -1) return;
-    projects.splice(projectIndex, 1);
-  }
-
-  function log() {
-    projects.forEach(project => project.log());
-  }
-
-  return {
-    addProject,
-    removeProject,
-    log,
-  }
-})(defaultProject);
-
-const workoutProject = Project("Workout", "Gotta be strong!");
-const studyProject = Project("Study", "Gotta be smart!");
+const todolist = Todolist(defaultProject);
 
 todolist.addProject(workoutProject);
 todolist.addProject(studyProject);
