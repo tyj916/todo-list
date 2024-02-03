@@ -13,21 +13,21 @@ export function Todolist() {
     projects.splice(projectIndex, 1);
   }
 
-  function getAllTasks() {
-    const allTasks = [];
+  function getTasks() {
+    const tasks = [];
 
     projects.forEach(project => {
       project.getTasks().forEach(task => {
-        allTasks.push(task);
+        tasks.push(task);
       });
     });
 
-    return allTasks;
+    return tasks;
   }
 
   function getSortedTasks() {
-    const allTasks = getAllTasks();
-    return sortTasks(allTasks);
+    const tasks = getTasks();
+    return sortTasks(tasks);
   }
 
   function log() {
@@ -35,6 +35,7 @@ export function Todolist() {
   }
 
   return {
+    getProjects: () => projects,
     addProject,
     removeProject,
     getSortedTasks,
