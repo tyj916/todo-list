@@ -7,8 +7,29 @@ export function Task(title, description, dueDate, priority) {
     const tasksContainer = document.querySelector("#tasks-container");
 
     const taskContainer = document.createElement('div');
+    const title = document.createElement("p");
+    const description = document.createElement("p");
+    const dueDate = document.createElement("p");
+    const editBtn = document.createElement("button");
+    const completeBtn = document.createElement("button");
+    const removeBtn = document.createElement("button");
+
+    taskContainer.dataset.priority = task.priority.toLowerCase();
     taskContainer.classList.add('taskContainer');
-    taskContainer.textContent = "Wahaha";
+
+    title.textContent = task.title;
+    description.textContent = task.description;
+    dueDate.textContent = task.dueDate;
+    editBtn.textContent = "Edit";
+    completeBtn.textContent = "Complete";
+    removeBtn.textContent = "Remove";
+
+    taskContainer.appendChild(title);
+    taskContainer.appendChild(description);
+    taskContainer.appendChild(dueDate);
+    taskContainer.appendChild(editBtn);
+    taskContainer.appendChild(completeBtn);
+    taskContainer.appendChild(removeBtn);
 
     tasksContainer.appendChild(taskContainer);
   }

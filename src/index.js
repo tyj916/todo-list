@@ -1,6 +1,6 @@
 import { Project } from "./project";
 import { Task } from "./task";
-import { Todolist } from "./todolist";
+import { ProjectsHandler } from "./projectsHandler";
 
 const tasks = [
   {
@@ -27,7 +27,7 @@ const task1 = Task(tasks[0].title, tasks[0].description, tasks[0].dueDate, tasks
 const task2 = Task(tasks[1].title, tasks[1].description, tasks[1].dueDate, tasks[1].priority);
 const task3 = Task(tasks[2].title, tasks[2].description, tasks[2].dueDate, tasks[2].priority);
 
-const defaultProject = Project("Default", "");
+const defaultProject = Project("Default", "Unassigned tasks will be assigned here.");
 const workoutProject = Project("Workout", "Gotta be strong!");
 const studyProject = Project("Study", "Gotta be smart!");
 
@@ -35,41 +35,45 @@ defaultProject.addTask(task1);
 defaultProject.addTask(task2);
 defaultProject.addTask(task3);
 
-const todolist = Todolist();
-todolist.addProject(defaultProject);
-todolist.addProject(workoutProject);
-todolist.addProject(studyProject);
+const projectsHandler = ProjectsHandler();
+projectsHandler.addProject(defaultProject);
+projectsHandler.addProject(workoutProject);
+projectsHandler.addProject(studyProject);
 
 // cache DOM
 const sidebar = document.querySelector("#sidebar");
 const content = document.querySelector("#content");
-const allTasks = sidebar.querySelector("#all-tasks");
-const projectsElement = sidebar.querySelector("#projects"); 
+const allTasksBtn = sidebar.querySelector("#all-tasks");
+const projectsContainer = sidebar.querySelector("#projects"); 
 
 // bind events
-// allTasks.addEventListener('click', render);
-projectsElement.addEventListener('click', render);
+projectsContainer.addEventListener('click', projectsHandler.render);
 
 function render(event) {
+  if (event.target.tagName !== 'BUTTON') return;
+
   content.textContent = '';
 
-  const projects = todolist.getProjects();
-  projects.forEach(project => {
-    if (!(project.getTitle() === event.target.textContent)) return;
-    project.render();
-  });
+  const target = event.target.textContent;
+
+  if (target === 'All Tasks') {
+    renderAllTasks();
+  } else {
+    const projects = projectsHandler.getProjects();
+  }
+}
+
+function renderAllTasks() {
+
 }
 
 function renderSidebar() {
-  const projects = todolist.getProjects();
-  console.log(projects);
+  const projects = projectsHandler.getProjects();
 
-  const test = document.createElement('p');
-  projectsElement.appendChild(test);
   projects.forEach(project => {
     const btn = document.createElement('button');
     btn.textContent = project.getTitle();
-    projectsElement.appendChild(btn);
+    projectsContainer.appendChild(btn);
   })
 }
 
