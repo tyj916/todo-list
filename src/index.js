@@ -41,14 +41,16 @@ projectsHandler.addProject(workoutProject);
 projectsHandler.addProject(studyProject);
 
 // cache DOM
-const sidebar = document.querySelector("#sidebar");
-const content = document.querySelector("#content");
-const allTasksBtn = sidebar.querySelector("#all-tasks");
+const body = document.querySelector("body");
+const logo = body.querySelector("#logo");
+const allTasksBtn = body.querySelector("#all-tasks");
 
 // bind events
-allTasksBtn.addEventListener('click', renderAllTasks);
+[logo, allTasksBtn].forEach(btn => btn.addEventListener('click', render));
 
-function renderAllTasks() {
+function render() {
+  projectsHandler.render();
+
   const allTasksProject = Project("All Tasks", "All of your tasks will be shown here.");
   const allTasks = projectsHandler.getAllTasks();
 
@@ -59,8 +61,4 @@ function renderAllTasks() {
   allTasksProject.render();
 }
 
-function renderSidebar() {
-  projectsHandler.render();
-}
-
-renderSidebar();
+render();
