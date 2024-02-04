@@ -1,35 +1,25 @@
+import { render as renderHome } from "./index";
 import { Project } from "./project";
 
 export function ProjectsHandler() {
   const projects = [];
 
   // cache DOM
-  const projectsContainer = document.querySelector("#projects");
-  const dialog = document.querySelector("dialog#add-project");
+  const body = document.querySelector("body");
+  const projectsContainer = body.querySelector("#projects-container");
+  const addProjectBtn = body.querySelector("#add-project");
+  const dialog = body.querySelector("dialog#add-project");
   const form = dialog.querySelector("form");
   const submitBtn = dialog.querySelector("#submit");
   const cancelBtn = dialog.querySelector("#cancel");
 
-  // bind events
-  submitBtn.addEventListener("click", () => {
-    const title = dialog.querySelector("input#new-project-title").value;
-
-    if (!title) return;
-
-    const description = dialog.querySelector("input#new-project-description").value;
-    const newProject = Project(title, description);
-    addProject(newProject);
-    render();
-    form.reset();
-  });
+  // cache DOM
+  addProjectBtn.addEventListener('click', () => dialog.showModal());
+  submitBtn.addEventListener("click", addNewProject);
   cancelBtn.addEventListener("click", () => dialog.close());
 
   function render() {
     projectsContainer.textContent = '';
-
-    const h3 = document.createElement('h3');
-    h3.textContent = "Projects";
-    projectsContainer.appendChild(h3);
 
     projects.forEach(project => {
       const projectTitle = document.createElement('button');
@@ -42,17 +32,25 @@ export function ProjectsHandler() {
       removeProjectBtn.addEventListener('click', () => {
         removeProject(project);
         render();
+        renderHome();
       });
 
       projectsContainer.appendChild(projectTitle);
       projectsContainer.appendChild(removeProjectBtn);
-    })
+    });
+  }
 
-    const addProjectBtn = document.createElement('button');
-    addProjectBtn.textContent = "Add Project";
-    addProjectBtn.addEventListener('click', () => dialog.showModal());
-
-    projectsContainer.appendChild(addProjectBtn);
+  function addNewProject() {
+    const title = dialog.querySelector("input#new-project-title").value;
+  
+    if (!title) return;
+  
+    const description = dialog.querySelector("input#new-project-description").value;
+    const newProject = Project(title, description);
+    addProject(newProject);
+    render();
+    newProject.render();
+    form.reset();
   }
 
   function getProject(title) {

@@ -44,12 +44,13 @@ projectsHandler.addProject(studyProject);
 // cache DOM
 const body = document.querySelector("body");
 const logo = body.querySelector("#logo");
-const allTasksBtn = body.querySelector("#all-tasks");
+const sidebar = body.querySelector("#sidebar");
+const allTasksBtn = sidebar.querySelector("#all-tasks");
 
 // bind events
 [logo, allTasksBtn].forEach(btn => btn.addEventListener('click', render));
 
-function render() {
+export function render() {
   projectsHandler.render();
 
   const allTasksProject = Project("All Tasks", "All of your tasks will be shown here.");
