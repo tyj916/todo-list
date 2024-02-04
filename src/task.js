@@ -12,24 +12,21 @@ export function Task(title, description, dueDate, priority) {
     const dueDate = document.createElement("p");
     const editBtn = document.createElement("button");
     const completeBtn = document.createElement("button");
-    const removeBtn = document.createElement("button");
 
     taskContainer.dataset.priority = task.priority.toLowerCase();
-    taskContainer.classList.add('taskContainer');
+    taskContainer.classList.add('task-container');
 
     title.textContent = task.title;
     description.textContent = task.description;
     dueDate.textContent = task.dueDate;
     editBtn.textContent = "Edit";
-    completeBtn.textContent = "Complete";
-    removeBtn.textContent = "Remove";
+    completeBtn.textContent = task.isCompleted ? 'Not complete' : 'Complete';
 
     taskContainer.appendChild(title);
     taskContainer.appendChild(description);
     taskContainer.appendChild(dueDate);
     taskContainer.appendChild(editBtn);
     taskContainer.appendChild(completeBtn);
-    taskContainer.appendChild(removeBtn);
 
     tasksContainer.appendChild(taskContainer);
   }

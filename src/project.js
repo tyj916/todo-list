@@ -4,8 +4,11 @@ import { logTasks, sortTasks } from "./tasksProcessor";
 export function Project(title, description) {
   const project = createProject(title, description);
   
+  // cache DOM
+  const content = document.querySelector('#content');
+
   function render() {
-    const content = document.querySelector('#content');
+    content.textContent = '';
     
     const projectContainer = document.createElement('div');
     const title = document.createElement("h2");
@@ -19,7 +22,16 @@ export function Project(title, description) {
     projectContainer.appendChild(title);
     projectContainer.appendChild(tasksContainer);
     
-    project.tasks.forEach(task => task.render());
+    project.tasks.forEach((task, index) => {
+      task.render();
+
+      const currentTaskContainer = tasksContainer.querySelectorAll(".task-container")[index];
+      const removeBtn = document.createElement('button');
+
+      removeBtn.textContent = "Remove";
+
+      currentTaskContainer.appendChild(removeBtn);
+    });
   }
 
   function addTask(task) {

@@ -2,17 +2,33 @@ export function ProjectsHandler() {
   const projects = [];
 
   // cache DOM
-  const content = document.querySelector("#content");
+  const projectsContainer = document.querySelector("#projects");
 
-  function render(event) {
-    content.textContent = '';
+  function render() {
+    projectsContainer.textContent = '';
 
-    const target = event.target.textContent;
+    const h3 = document.createElement('h3');
+    h3.textContent = "Projects";
+    projectsContainer.appendChild(h3);
 
+    projects.forEach(project => {
+      const btn = document.createElement('button');
+      btn.textContent = project.getTitle();
+      btn.addEventListener('click', project.render);
+
+      projectsContainer.appendChild(btn);
+    })
+
+    const addProjectBtn = document.createElement('button');
+    addProjectBtn.textContent = "Add Project";
+    addProjectBtn.addEventListener('click', ()=>{});
+
+    projectsContainer.appendChild(addProjectBtn);
+  }
+
+  function getProject(title) {
     for (const project of projects) {
-      if (!(project.getTitle() === target)) continue;
-      project.render();
-      break;
+      if (project.getTitle() === title) return project;
     }
   }
 
@@ -44,6 +60,7 @@ export function ProjectsHandler() {
 
   return {
     getProjects: () => projects,
+    getProject,
     getAllTasks,
     render,
     addProject,
