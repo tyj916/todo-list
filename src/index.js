@@ -1,6 +1,7 @@
 import { Project } from "./project";
 import { Task } from "./task";
 import { ProjectsHandler } from "./projectsHandler";
+import 'normalize.css'
 
 const tasks = [
   {
