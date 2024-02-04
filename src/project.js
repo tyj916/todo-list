@@ -27,7 +27,7 @@ export function Project(title, description) {
 
       const currentTaskContainer = tasksContainer.querySelectorAll(".task-container")[index];
       const removeBtn = document.createElement('button');
-
+      
       removeBtn.textContent = "Remove";
 
       currentTaskContainer.appendChild(removeBtn);

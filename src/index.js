@@ -7,19 +7,19 @@ const tasks = [
   {
     title: "Learn coding",
     description: "Coding is important!",
-    dueDate: new Date(2023, 11, 22).toDateString(),
+    dueDate: new Date(2023, 11, 22),
     priority: "High",
   },
   {
     title: "Do housework",
     description: "What?! There's dust on the floor again?!",
-    dueDate: (new Date(2022, 0, 12)).toDateString(),
+    dueDate: (new Date(2022, 0, 12)),
     priority: "Low",
   },
   {
     title: "Workout",
     description: "Gym bro",
-    dueDate: new Date().toDateString(),
+    dueDate: new Date(),
     priority: "Medium",
   },
 ];
