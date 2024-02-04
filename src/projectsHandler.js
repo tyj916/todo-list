@@ -11,7 +11,17 @@ export function ProjectsHandler() {
   const cancelBtn = dialog.querySelector("#cancel");
 
   // bind events
-  submitBtn.addEventListener("click", submitProject);
+  submitBtn.addEventListener("click", () => {
+    const title = dialog.querySelector("input#new-project-title").value;
+
+    if (!title) return;
+
+    const description = dialog.querySelector("input#new-project-description").value;
+    const newProject = Project(title, description);
+    addProject(newProject);
+    render();
+    form.reset();
+  });
   cancelBtn.addEventListener("click", () => dialog.close());
 
   function render() {
@@ -22,11 +32,20 @@ export function ProjectsHandler() {
     projectsContainer.appendChild(h3);
 
     projects.forEach(project => {
-      const btn = document.createElement('button');
-      btn.textContent = project.getTitle();
-      btn.addEventListener('click', project.render);
+      const projectTitle = document.createElement('button');
+      const removeProjectBtn = document.createElement("button");
 
-      projectsContainer.appendChild(btn);
+      projectTitle.textContent = project.getTitle();
+      removeProjectBtn.textContent = "Remove";
+
+      projectTitle.addEventListener('click', project.render);
+      removeProjectBtn.addEventListener('click', () => {
+        removeProject(project);
+        render();
+      });
+
+      projectsContainer.appendChild(projectTitle);
+      projectsContainer.appendChild(removeProjectBtn);
     })
 
     const addProjectBtn = document.createElement('button');
@@ -34,18 +53,6 @@ export function ProjectsHandler() {
     addProjectBtn.addEventListener('click', () => dialog.showModal());
 
     projectsContainer.appendChild(addProjectBtn);
-  }
-
-  function submitProject() {
-    const title = dialog.querySelector("input#new-project-title").value;
-
-    if (!title) return;
-
-    const description = dialog.querySelector("input#new-project-description").value;
-    const newProject = Project(title, description);
-    addProject(newProject);
-    render();
-    form.reset();
   }
 
   function getProject(title) {
