@@ -12,13 +12,25 @@
 
   <nav id="sidebar">
     <button id="all-tasks">All Tasks</button>
-    <div id="projects">
-      <h3>Projects</h3>
-    </div>
+    <div id="projects"></div>
   </nav>
 
   <main id="content"></main>
 
-  <dialog></dialog>
+  <dialog id="add-project">
+    <form method="dialog">
+      <h2>Add Project</h2>
+
+      <label for="new-project-title">Project Title</label>
+      <input type="text" id="new-project-title">
+      <label for="new-project-description">Project Description</label>
+      <input type="text" id="new-project-description">
+
+      <div class="button-container">
+        <button type="submit" id="submit">Submit</button>
+        <button id="cancel">Cancel</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>

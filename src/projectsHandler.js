@@ -1,8 +1,18 @@
+import { Project } from "./project";
+
 export function ProjectsHandler() {
   const projects = [];
 
   // cache DOM
   const projectsContainer = document.querySelector("#projects");
+  const dialog = document.querySelector("dialog#add-project");
+  const form = dialog.querySelector("form");
+  const submitBtn = dialog.querySelector("#submit");
+  const cancelBtn = dialog.querySelector("#cancel");
+
+  // bind events
+  submitBtn.addEventListener("click", submitProject);
+  cancelBtn.addEventListener("click", () => dialog.close());
 
   function render() {
     projectsContainer.textContent = '';
@@ -21,9 +31,21 @@ export function ProjectsHandler() {
 
     const addProjectBtn = document.createElement('button');
     addProjectBtn.textContent = "Add Project";
-    addProjectBtn.addEventListener('click', ()=>{});
+    addProjectBtn.addEventListener('click', () => dialog.showModal());
 
     projectsContainer.appendChild(addProjectBtn);
+  }
+
+  function submitProject() {
+    const title = dialog.querySelector("input#new-project-title").value;
+
+    if (!title) return;
+
+    const description = dialog.querySelector("input#new-project-description").value;
+    const newProject = Project(title, description);
+    addProject(newProject);
+    render();
+    form.reset();
   }
 
   function getProject(title) {
