@@ -21,11 +21,12 @@ export function ProjectsHandler() {
     projectsContainer.textContent = '';
 
     projects.forEach(project => {
-      const projectTitle = document.createElement('button');
-      const removeProjectBtn = document.createElement("button");
+      const projectContainer = document.createElement("button");
+      const projectTitle = document.createElement('span');
+      const removeProjectBtn = document.createElement("a");
 
       projectTitle.textContent = project.getTitle();
-      removeProjectBtn.textContent = "Remove";
+      removeProjectBtn.textContent = "×";
 
       projectTitle.addEventListener('click', project.render);
       removeProjectBtn.addEventListener('click', () => {
@@ -33,8 +34,9 @@ export function ProjectsHandler() {
         render();
       });
 
-      projectsContainer.appendChild(projectTitle);
-      projectsContainer.appendChild(removeProjectBtn);
+      projectContainer.appendChild(projectTitle);
+      projectContainer.appendChild(removeProjectBtn);
+      projectsContainer.appendChild(projectContainer);
     });
   }
 

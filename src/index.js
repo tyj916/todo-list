@@ -1,7 +1,8 @@
 import { Project } from "./project";
 import { Task } from "./task";
 import { ProjectsHandler } from "./projectsHandler";
-import 'normalize.css'
+import 'normalize.css';
+import './style.css';
 
 const tasks = [
   {
