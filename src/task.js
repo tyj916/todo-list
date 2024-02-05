@@ -1,17 +1,11 @@
 import { logMessage } from "./logger";
+import { render as renderProject } from "./project";
 
 export function Task(title, description, dueDate, priority) {
   const task = createTask(title, description, dueDate, priority);
 
+  // cache DOM
   const dialog = document.querySelector("dialog#edit-task");
-  const titleElement = dialog.querySelector("#title");
-  const descriptionElement = dialog.querySelector("#description");
-  const dueDateElement = dialog.querySelector("#due-date");
-  const priorityElement = dialog.querySelector("#priority");
-  const submitBtn = dialog.querySelector("#submit");
-
-  // bind events
-  submitBtn.addEventListener('click', editTask);
 
   function render() {
     const tasksContainer = document.querySelector("#tasks-container");
@@ -23,7 +17,7 @@ export function Task(title, description, dueDate, priority) {
     const completeBtn = document.createElement("button");
     const editBtn = document.createElement("button");
 
-    taskContainer.dataset.priority = task.priority.toLowerCase();
+    taskContainer.dataset.priority = task.priority;
     taskContainer.classList.add('task-container');
 
     title.textContent = task.title;
@@ -42,21 +36,22 @@ export function Task(title, description, dueDate, priority) {
   }
 
   function showDialog() {
-    titleElement.value = task.title;
-    descriptionElement.value = task.description;
-    dueDateElement.value = task.dueDateISOString;
-    priorityElement.value = task.priority;
+    const title = dialog.querySelector("#title");
+    const description = dialog.querySelector("#description");
+    const dueDate = dialog.querySelector("#due-date");
+    const priority = dialog.querySelector("#priority");
+    const submitBtn = dialog.querySelector("#submit");
+
+    submitBtn.addEventListener('click', () => {
+      update(title.value, description.value, dueDate.value, priority.value);
+    });
+
+    title.value = task.title;
+    description.value = task.description;
+    dueDate.value = task.dueDateISOString;
+    priority.value = task.priority;
 
     dialog.showModal();
-  }
-
-  function editTask() {
-    const newTitle = titleElement.value;
-    const newDescription = descriptionElement.value;
-    const newDueDate = dueDateElement.value;
-    const newPriority = priorityElement.value;
-
-    task.update(newTitle, newDescription, newDueDate, newPriority);
   }
 
   function update(title, description, dueDate, priority) {
@@ -77,7 +72,6 @@ export function Task(title, description, dueDate, priority) {
   }
 
   return {
-    showDialog,
     render,
     update,
     complete,

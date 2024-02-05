@@ -35,11 +35,18 @@ const studyProject = Project("Study", "Gotta be smart!");
 defaultProject.addTask(defaultTask);
 workoutProject.addTask(workoutTask);
 studyProject.addTask(studyTask);
+studyProject.addTask(studyTask);
+studyProject.addTask(studyTask);
+studyProject.addTask(studyTask);
+studyProject.addTask(studyTask);
 
 const projectsHandler = ProjectsHandler();
 projectsHandler.addProject(defaultProject);
 projectsHandler.addProject(workoutProject);
 projectsHandler.addProject(studyProject);
+
+studyTask.update("a", "b", new Date(), 'low');
+// studyTask.editTask();
 
 // cache DOM
 const body = document.querySelector("body");
