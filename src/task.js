@@ -1,5 +1,4 @@
 import { logMessage } from "./logger";
-import { render as renderProject } from "./project";
 
 export function Task(title, description, dueDate, priority) {
   const task = createTask(title, description, dueDate, priority);
@@ -20,10 +19,15 @@ export function Task(title, description, dueDate, priority) {
     taskContainer.dataset.priority = task.priority;
     taskContainer.classList.add('task-container');
 
+    title.classList.add("task", "title");
     title.textContent = task.title;
+    description.classList.add("task", "description");
     description.textContent = task.description;
-    dueDate.textContent = task.dueDate;
+    dueDate.classList.add("task", "due-date");
+    dueDate.textContent = new Date(task.dueDate).toDateString();
+    completeBtn.classList.add('task', "complete");
     completeBtn.textContent = task.isCompleted ? 'Not complete' : 'Complete';
+    editBtn.classList.add('task', 'edit');
     editBtn.textContent = "Edit";
     editBtn.addEventListener('click', showDialog);
 
@@ -35,7 +39,9 @@ export function Task(title, description, dueDate, priority) {
     tasksContainer.appendChild(taskContainer);
   }
 
-  function showDialog() {
+  function showDialog(event) {
+    const targetTask = event.target.parentNode;
+
     const title = dialog.querySelector("#title");
     const description = dialog.querySelector("#description");
     const dueDate = dialog.querySelector("#due-date");
@@ -44,11 +50,20 @@ export function Task(title, description, dueDate, priority) {
 
     submitBtn.addEventListener('click', () => {
       update(title.value, description.value, dueDate.value, priority.value);
+
+      const targetTitle = targetTask.querySelector('.title');
+      const targetDescription = targetTask.querySelector('.description');
+      const targetDueDate = targetTask.querySelector('.due-date');
+
+      targetTitle.textContent = task.title;
+      targetDescription.textContent = task.description;
+      targetDueDate.textContent = new Date(task.dueDate).toDateString();
+      targetTask.dataset.priority = task.priority;
     });
 
     title.value = task.title;
     description.value = task.description;
-    dueDate.value = task.dueDateISOString;
+    dueDate.value = task.dueDate;
     priority.value = task.priority;
 
     dialog.showModal();
@@ -72,6 +87,10 @@ export function Task(title, description, dueDate, priority) {
   }
 
   return {
+    getTitle: () => task.title,
+    getDescription: () => task.description,
+    getDueDate: () => task.dueDate,
+    getPriority: () => task.priority,
     render,
     update,
     complete,
@@ -81,13 +100,11 @@ export function Task(title, description, dueDate, priority) {
 
 function createTask(title, description, dueDate, priority) {
   const isCompleted = false;
-  const dueDateISOString = new Date(dueDate).toISOString().slice(0,16);
 
   return {
     title,
     description,
-    dueDate: new Date(dueDate).toDateString(),
-    dueDateISOString,
+    dueDate: new Date(dueDate).toISOString().slice(0,16),
     priority: priority.toLowerCase(),
     isCompleted,
   }
