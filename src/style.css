@@ -155,7 +155,6 @@ nav #projects #add-project {
 }
 
 #content .task-container .btn-container .complete {
-  padding: 4px;
   border-radius: 16px;
   background-color: var(--red);
 }
