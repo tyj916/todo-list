@@ -13,12 +13,13 @@ export function Project(title, description) {
     content.textContent = '';
     
     const projectContainer = document.createElement('div');
+    const projectHeader = document.createElement('div');
+    const addTaskBtn = document.createElement("button");
     const title = document.createElement("h2");
     const tasksContainer = document.createElement('div');
-    const addTaskBtn = document.createElement("button");
 
     projectContainer.id = 'project-container';
-    content.appendChild(projectContainer);
+    projectHeader.classList.add('project-header');
     title.textContent = project.title;
     addTaskBtn.id = "add-task";
     addTaskBtn.textContent = "+ New Task";
@@ -43,14 +44,17 @@ export function Project(title, description) {
       taskDialog.showModal();
     });
 
-    projectContainer.appendChild(title);
-    projectContainer.appendChild(addTaskBtn);
+    projectHeader.appendChild(title);
+    projectHeader.appendChild(addTaskBtn);
+    projectContainer.appendChild(projectHeader);
     projectContainer.appendChild(tasksContainer);
+    content.appendChild(projectContainer);
     
     project.tasks.forEach((task, index) => {
       task.render();
 
       const currentTaskContainer = tasksContainer.querySelectorAll(".task-container")[index];
+      const btnContainer = currentTaskContainer.querySelector(".btn-container");
       const removeBtn = document.createElement('button');
       
       removeBtn.textContent = "Remove";
@@ -60,7 +64,7 @@ export function Project(title, description) {
         render();
       });
 
-      currentTaskContainer.appendChild(removeBtn);
+      btnContainer.appendChild(removeBtn);
     });
   }
 

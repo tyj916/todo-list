@@ -10,9 +10,10 @@ export function Task(title, description, dueDate, priority) {
     const tasksContainer = document.querySelector("#tasks-container");
 
     const taskContainer = document.createElement('div');
-    const title = document.createElement("p");
+    const title = document.createElement("h3");
     const description = document.createElement("p");
     const dueDate = document.createElement("p");
+    const btnContainer = document.createElement('div');
     const completeBtn = document.createElement("button");
     const editBtn = document.createElement("button");
 
@@ -24,19 +25,26 @@ export function Task(title, description, dueDate, priority) {
     description.classList.add("task", "description");
     description.textContent = task.description;
     dueDate.classList.add("task", "due-date");
-    dueDate.textContent = new Date(task.dueDate).toDateString();
-    completeBtn.textContent = task.isCompleted ? 'Completed' : 'Not complete';
+    dueDate.textContent = `Due Date: ${new Date(task.dueDate).toDateString()}`;
+    btnContainer.classList.add('btn-container');
+    completeBtn.classList.add('task', 'complete');
+    completeBtn.textContent = '✓';
     editBtn.classList.add('task', 'edit');
     editBtn.textContent = "Edit";
 
     completeBtn.addEventListener('click', completeTask);
     editBtn.addEventListener('click', showEditDialog);
 
+    if (task.isCompleted) {
+      taskContainer.classList.add('completed');
+    }
+
     taskContainer.appendChild(title);
     taskContainer.appendChild(description);
     taskContainer.appendChild(dueDate);
-    taskContainer.appendChild(completeBtn);
-    taskContainer.appendChild(editBtn);
+    btnContainer.appendChild(completeBtn);
+    btnContainer.appendChild(editBtn);
+    taskContainer.appendChild(btnContainer);
     tasksContainer.appendChild(taskContainer);
   }
 
@@ -73,15 +81,14 @@ export function Task(title, description, dueDate, priority) {
   }
 
   function completeTask(event) {
-    const target = event.target;
-    target.classList.toggle("completed");
+    const targetTask = event.target.parentNode.parentNode;
+
+    targetTask.classList.toggle("completed");
     
     if (task.isCompleted) {
       task.isCompleted = false;
-      target.textContent = 'Not complete';
     } else {
       task.isCompleted = true;
-      target.textContent = 'Completed';
     }
   }
 

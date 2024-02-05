@@ -4,6 +4,9 @@
   --slate: #94a3b8;
   --dark-slate: #475569;
   --black-slate: #020617;
+  --green: #4ade80;
+  --red: #f87171;
+  --yellow: #facc15;
 }
 
 body {
@@ -12,6 +15,17 @@ body {
   display: grid;
   grid-template-columns: 180px 1fr;
   grid-template-rows: auto 1fr;
+}
+
+button {
+  background: none;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: var(--light-slate);
+  cursor: pointer;
 }
 
 header {
@@ -39,13 +53,9 @@ nav button {
   background: none;
   border: none;
   text-align: left;
-  padding: 8px;
-  border-radius: 8px;
 }
 
 nav button:hover {
-  background-color: var(--light-slate);
-  cursor: pointer;
   font-weight: bold;
 }
 
@@ -76,4 +86,102 @@ nav #projects #projects-container button:hover a:hover{
 nav #projects #add-project {
   margin-top: 8px;
   width: 100%;
+}
+
+#content {
+  padding: 8px 32px;
+}
+
+#content .project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#content #tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#content .task-container {
+  background-color: var(--white-slate);
+  padding: 16px;
+  border: 3px solid var(--light-slate);
+  border-radius: 8px;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px;
+}
+
+#content .task-container[data-priority='high'] {
+  border-color: var(--red);
+}
+
+#content .task-container[data-priority='medium'] {
+  border-color: var(--yellow);
+}
+
+#content .task-container[data-priority='low'] {
+  border-color: var(--green);
+}
+
+#content .task-container * {
+  margin: 0;
+}
+
+#content .task-container .description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#content .task-container .due-date {
+  font-size: 0.9rem;
+}
+
+#content .task-container .btn-container {
+  grid-area: 1 / 2 / 4 / 3;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#content .task-container .btn-container button {
+  padding: 4px 8px;
+}
+
+#content .task-container .btn-container .complete {
+  padding: 4px;
+  border-radius: 16px;
+  background-color: var(--red);
+}
+
+#content .task-container.completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+#content .task-container.completed .btn-container .complete {
+  background-color: var(--green);
+}
+
+dialog#add-project form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+dialog#add-project form .button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+dialog#task form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
