@@ -20,9 +20,9 @@ export function Project(title, description) {
     projectContainer.id = 'project-container';
     content.appendChild(projectContainer);
     title.textContent = project.title;
-    tasksContainer.id = 'tasks-container';
     addTaskBtn.id = "add-task";
     addTaskBtn.textContent = "+ New Task";
+    tasksContainer.id = 'tasks-container';
 
     addTaskBtn.addEventListener('click', () => {
       const dialogTitle = taskDialog.querySelector("h2");
@@ -44,8 +44,8 @@ export function Project(title, description) {
     });
 
     projectContainer.appendChild(title);
-    projectContainer.appendChild(tasksContainer);
     projectContainer.appendChild(addTaskBtn);
+    projectContainer.appendChild(tasksContainer);
     
     project.tasks.forEach((task, index) => {
       task.render();

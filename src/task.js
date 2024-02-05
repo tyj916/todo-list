@@ -25,10 +25,11 @@ export function Task(title, description, dueDate, priority) {
     description.textContent = task.description;
     dueDate.classList.add("task", "due-date");
     dueDate.textContent = new Date(task.dueDate).toDateString();
-    completeBtn.classList.add('task', "complete");
-    completeBtn.textContent = task.isCompleted ? 'Not complete' : 'Complete';
+    completeBtn.textContent = task.isCompleted ? 'Completed' : 'Not complete';
     editBtn.classList.add('task', 'edit');
     editBtn.textContent = "Edit";
+
+    completeBtn.addEventListener('click', completeTask);
     editBtn.addEventListener('click', showEditDialog);
 
     taskContainer.appendChild(title);
@@ -69,6 +70,19 @@ export function Task(title, description, dueDate, priority) {
     });
 
     dialog.showModal();
+  }
+
+  function completeTask(event) {
+    const target = event.target;
+    target.classList.toggle("completed");
+    
+    if (task.isCompleted) {
+      task.isCompleted = false;
+      target.textContent = 'Not complete';
+    } else {
+      task.isCompleted = true;
+      target.textContent = 'Completed';
+    }
   }
 
   function update(title, description, dueDate, priority) {
