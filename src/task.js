@@ -4,7 +4,7 @@ export function Task(title, description, dueDate, priority) {
   const task = createTask(title, description, dueDate, priority);
 
   // cache DOM
-  const dialog = document.querySelector("dialog#edit-task");
+  const dialog = document.querySelector("dialog#task");
 
   function render() {
     const tasksContainer = document.querySelector("#tasks-container");
@@ -29,7 +29,7 @@ export function Task(title, description, dueDate, priority) {
     completeBtn.textContent = task.isCompleted ? 'Not complete' : 'Complete';
     editBtn.classList.add('task', 'edit');
     editBtn.textContent = "Edit";
-    editBtn.addEventListener('click', showDialog);
+    editBtn.addEventListener('click', showEditDialog);
 
     taskContainer.appendChild(title);
     taskContainer.appendChild(description);
@@ -39,14 +39,21 @@ export function Task(title, description, dueDate, priority) {
     tasksContainer.appendChild(taskContainer);
   }
 
-  function showDialog(event) {
+  function showEditDialog(event) {
     const targetTask = event.target.parentNode;
 
+    const dialogTitle = dialog.querySelector("h2");
     const title = dialog.querySelector("#title");
     const description = dialog.querySelector("#description");
     const dueDate = dialog.querySelector("#due-date");
     const priority = dialog.querySelector("#priority");
     const submitBtn = dialog.querySelector("#submit");
+
+    dialogTitle.textContent = "Edit Task";
+    title.value = task.title;
+    description.value = task.description;
+    dueDate.value = task.dueDate;
+    priority.value = task.priority;
 
     submitBtn.addEventListener('click', () => {
       update(title.value, description.value, dueDate.value, priority.value);
@@ -60,11 +67,6 @@ export function Task(title, description, dueDate, priority) {
       targetDueDate.textContent = new Date(task.dueDate).toDateString();
       targetTask.dataset.priority = task.priority;
     });
-
-    title.value = task.title;
-    description.value = task.description;
-    dueDate.value = task.dueDate;
-    priority.value = task.priority;
 
     dialog.showModal();
   }

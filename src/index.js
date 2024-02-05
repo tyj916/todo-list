@@ -50,7 +50,7 @@ const allTasksBtn = sidebar.querySelector("#all-tasks");
 // bind events
 [logo, allTasksBtn].forEach(btn => btn.addEventListener('click', render));
 
-export function render() {
+function render() {
   projectsHandler.render();
 
   const allTasksProject = Project("All Tasks", "All of your tasks will be shown here.");
