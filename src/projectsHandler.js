@@ -1,4 +1,3 @@
-import { render as renderHome } from "./index";
 import { Project } from "./project";
 
 export function ProjectsHandler() {
@@ -32,7 +31,6 @@ export function ProjectsHandler() {
       removeProjectBtn.addEventListener('click', () => {
         removeProject(project);
         render();
-        renderHome();
       });
 
       projectsContainer.appendChild(projectTitle);

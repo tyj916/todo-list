@@ -8,7 +8,7 @@ export function Project(title, description) {
   const content = document.querySelector('#content');
 
   function render() {
-    content.textContent = '';
+    // content.textContent = '';
     
     const projectContainer = document.createElement('div');
     const title = document.createElement("h2");
@@ -29,6 +29,11 @@ export function Project(title, description) {
       const removeBtn = document.createElement('button');
       
       removeBtn.textContent = "Remove";
+
+      removeBtn.addEventListener('click', () => {
+        removeTask(task);
+        render();
+      });
 
       currentTaskContainer.appendChild(removeBtn);
     });
